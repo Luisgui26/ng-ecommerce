@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import {MatButton, MatIconButton } from '@angular/material/button'
 import {MatIcon } from '@angular/material/icon'
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-header-actions',
-  imports: [MatButton, MatIconButton, MatIcon],
+  imports: [MatButton, MatIconButton, MatIcon, RouterLink],
   template: `
    <div class="flex items-center gap-2">
-      <button matIconButton>
-        <mat-icon>favorite</mat-icon>
+      <button matIconButton routerLink="/wishlist">
+        <mat-icon >favorite</mat-icon>
       </button>
       <button matIconButton>
         <mat-icon>shopping_cart</mat-icon>
