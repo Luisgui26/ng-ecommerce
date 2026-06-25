@@ -1,25 +1,23 @@
 import { Component, computed, input, signal } from '@angular/core';
 import { Produto } from '../../modelos/produto';
+import { CardProduto } from '../../componentes/card-produto/card-produto';
 
 @Component({
   selector: 'app-produtos-grid',
-  imports: [],
-  template: ` <div class="bg-gray-100 p-6">
-
-    <h1 class="text-2xl font-bold text-gray-900">
+  imports: [CardProduto],
+  template: `
+   <div class="bg-gray-100 p-6 h-full">
+    <h1 class="text-2xl font-bold text-gray-900 mb-6">
       {{categoria()}}
     </h1>
 
     <div class="responsive-grid">
       @for (produto of produtosFiltrados(); track produto.id) {
-        <div class="bg-white cursor-pointer rounded-xl shadow-lg overflow-hidden flex flex-col h-full">
-          <img [src]="produto.imagemUrl" class="w-full h-[300px] object-cover rounded-t-xl" />
-        </div>
+        <app-card-produto [produto]= "produto" />
       }
     </div>
-
-
-  </div>`,
+  </div>
+  `,
   styles: ``,
 })
 export default class ProdutosGrid {
@@ -31,7 +29,7 @@ export default class ProdutosGrid {
     id: '1',
     nome: 'Notebook Gamer Nitro X',
     descricao: 'Notebook com processador de última geração e placa de vídeo dedicada.',
-    preco: 5499.90,
+    preco: 599.90,
     imagemUrl: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&w=400&q=80',
     avaliacao: 4.8,
     contAvaliacao: 245,
@@ -64,7 +62,7 @@ export default class ProdutosGrid {
     id: '4',
     nome: 'Monitor UltraWide 29"',
     descricao: 'Monitor Full HD UltraWide ideal para produtividade e jogos.',
-    preco: 1299.90,
+    preco: 199.90,
     imagemUrl: 'https://picsum.photos/300/300?random=4',
     avaliacao: 4.9,
     contAvaliacao: 176,
@@ -86,7 +84,7 @@ export default class ProdutosGrid {
     id: '6',
     nome: 'Smartphone Vision 12',
     descricao: 'Tela AMOLED de 6.7 polegadas e câmera de 108MP.',
-    preco: 2899.90,
+    preco: 899.90,
     imagemUrl: 'https://picsum.photos/300/300?random=6',
     avaliacao: 4.7,
     contAvaliacao: 321,
