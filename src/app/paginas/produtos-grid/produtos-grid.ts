@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, input, signal } from '@angular/core';
 import { Produto } from '../../modelos/produto';
 
 @Component({
@@ -8,6 +8,9 @@ import { Produto } from '../../modelos/produto';
   styles: ``,
 })
 export default class ProdutosGrid {
+
+  categoria = input<string>('todos');
+
   produtos = signal<Produto[]>([
     {
     id: '1',
@@ -98,4 +101,6 @@ export default class ProdutosGrid {
     categoria: 'Áudio'
   }
   ]);
+
+  produtosFiltrados = computed(() => this.produtos().filter(p => p.categoria === this.categoria().toLocaleLowerCase()));
 }

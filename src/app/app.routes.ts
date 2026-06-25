@@ -5,11 +5,11 @@ export const routes: Routes = [
     {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'produtos'
+        redirectTo: 'produtos/todos'
     },
     
     {
-        path: 'produtos',
+        path: 'produtos/:categoria',
         loadComponent: () =>  import('./paginas/produtos-grid/produtos-grid')
     },
     {
