@@ -4,7 +4,22 @@ import { Produto } from '../../modelos/produto';
 @Component({
   selector: 'app-produtos-grid',
   imports: [],
-  template: ` <p>produtos-grid works!</p> `,
+  template: ` <div class="bg-gray-100 p-6">
+
+    <h1 class="text-2xl font-bold text-gray-900">
+      {{categoria()}}
+    </h1>
+
+    <div class="responsive-grid">
+      @for (produto of produtosFiltrados(); track produto.id) {
+        <div class="bg-white cursor-pointer rounded-xl shadow-lg overflow-hidden flex flex-col h-full">
+          <img [src]="produto.imagemUrl" class="w-full h-[300px] object-cover rounded-t-xl" />
+        </div>
+      }
+    </div>
+
+
+  </div>`,
   styles: ``,
 })
 export default class ProdutosGrid {
@@ -17,11 +32,11 @@ export default class ProdutosGrid {
     nome: 'Notebook Gamer Nitro X',
     descricao: 'Notebook com processador de última geração e placa de vídeo dedicada.',
     preco: 5499.90,
-    imagemUrl: 'https://picsum.photos/300/300?random=1',
+    imagemUrl: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&w=400&q=80',
     avaliacao: 4.8,
     contAvaliacao: 245,
     emEstoque: true,
-    categoria: 'Informática'
+    categoria: 'informatica'
   },
   {
     id: '2',
@@ -32,7 +47,7 @@ export default class ProdutosGrid {
     avaliacao: 4.6,
     contAvaliacao: 132,
     emEstoque: true,
-    categoria: 'Periféricos'
+    categoria: 'perifericos'
   },
   {
     id: '3',
@@ -43,7 +58,7 @@ export default class ProdutosGrid {
     avaliacao: 4.7,
     contAvaliacao: 89,
     emEstoque: true,
-    categoria: 'Periféricos'
+    categoria: 'perifericos'
   },
   {
     id: '4',
@@ -54,7 +69,7 @@ export default class ProdutosGrid {
     avaliacao: 4.9,
     contAvaliacao: 176,
     emEstoque: false,
-    categoria: 'Monitores'
+    categoria: 'monitores'
   },
   {
     id: '5',
@@ -65,7 +80,7 @@ export default class ProdutosGrid {
     avaliacao: 4.5,
     contAvaliacao: 98,
     emEstoque: true,
-    categoria: 'Áudio'
+    categoria: 'audio'
   },
   {
     id: '6',
@@ -76,7 +91,7 @@ export default class ProdutosGrid {
     avaliacao: 4.7,
     contAvaliacao: 321,
     emEstoque: true,
-    categoria: 'Smartphones'
+    categoria: 'smartphones'
   },
   {
     id: '7',
@@ -87,7 +102,7 @@ export default class ProdutosGrid {
     avaliacao: 4.4,
     contAvaliacao: 154,
     emEstoque: true,
-    categoria: 'Wearables'
+    categoria: 'wearables'
   },
   {
     id: '8',
@@ -98,9 +113,15 @@ export default class ProdutosGrid {
     avaliacao: 4.3,
     contAvaliacao: 67,
     emEstoque: false,
-    categoria: 'Áudio'
+    categoria: 'audio'
   }
   ]);
 
-  produtosFiltrados = computed(() => this.produtos().filter(p => p.categoria === this.categoria().toLocaleLowerCase()));
+  produtosFiltrados = computed(() =>
+  this.categoria().toLowerCase() === 'todos'
+    ? this.produtos()
+    : this.produtos().filter(
+        p => p.categoria.toLowerCase() === this.categoria().toLowerCase()
+      )
+);
 }
