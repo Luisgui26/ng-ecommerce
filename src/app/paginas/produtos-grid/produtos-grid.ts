@@ -1,22 +1,39 @@
 import { Component, computed, input, signal } from '@angular/core';
 import { Produto } from '../../modelos/produto';
 import { CardProduto } from '../../componentes/card-produto/card-produto';
+import { MatSidenavContainer, MatSidenavContent, MatSidenav } from '@angular/material/sidenav';
+import { MatNavList, MatListItem, MatListItemAvatar } from '@angular/material/list';
+import { RouterLink } from '@angular/router';
+
 
 @Component({
   selector: 'app-produtos-grid',
-  imports: [CardProduto],
+  imports: [CardProduto, MatSidenavContainer, MatSidenavContent, MatSidenav, MatNavList, MatListItem, MatListItemAvatar, RouterLink],
   template: `
-   <div class="bg-gray-100 p-6 h-full">
-    <h1 class="text-2xl font-bold text-gray-900 mb-6">
-      {{categoria()}}
-    </h1>
-
-    <div class="responsive-grid">
-      @for (produto of produtosFiltrados(); track produto.id) {
-        <app-card-produto [produto]= "produto" />
-      }
-    </div>
-  </div>
+    <mat-sidenav-container>
+      <mat-sidenav mode="side" opened="true">
+        <div class="p-6">
+          <h2 class="text-lg text-gray-900"> Categorias </h2>
+          <mat-nav-list>
+            @for (categoria of categorias(); track categoria) {
+              <mat-list-item class="my-2" [routerLink]="['/produtos', categoria]">
+                <span matListItemTitle class="font-medium">
+                  {{categoria}}
+                </span>
+              </mat-list-item>
+            }
+          </mat-nav-list>
+        </div>
+      </mat-sidenav>
+      <mat-sidenav-content class="bg-gray-100 p-6 h-full">
+        <h1 class="text-2xl font-bold text-gray-900 mb-6">  {{categoria()}} </h1>
+        <div class="responsive-grid">
+          @for (produto of produtosFiltrados(); track produto.id) {
+          <app-card-produto [produto]= "produto"/>
+          }
+        </div>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
   `,
   styles: ``,
 })
@@ -121,5 +138,7 @@ export default class ProdutosGrid {
     : this.produtos().filter(
         p => p.categoria.toLowerCase() === this.categoria().toLowerCase()
       )
-);
+  );
+
+  categorias = signal<string[]>(['todos', 'informatica', 'audio', 'wearables', 'smartphones', 'monitores', 'perifericos'])
 }

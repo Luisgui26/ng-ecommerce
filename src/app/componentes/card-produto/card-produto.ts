@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { Produto } from '../../modelos/produto';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -25,7 +25,7 @@ import { MatIcon } from '@angular/material/icon';
               <span class="text-2xl font-bold text-gray-900">
                 \${{produto().preco}}
               </span>
-              <button matButton="filled" class="flex items-center gap-2">
+              <button matButton="filled" class="flex items-center gap-2" (click)="addCarrinhoClicked.emit(produto())">
                 <mat-icon>shopping_cart</mat-icon>
                 Add carrinho
               </button>
@@ -36,7 +36,8 @@ import { MatIcon } from '@angular/material/icon';
   styles: ``,
 })
 export class CardProduto {
-
   produto = input.required<Produto>()
+
+  addCarrinhoClicked = output<Produto>();
 
 }
