@@ -27,7 +27,7 @@ import { MatIcon } from '@angular/material/icon';
               </span>
               <button matButton="filled" class="flex items-center gap-2" (click)="addCarrinhoClicked.emit(produto())">
                 <mat-icon>shopping_cart</mat-icon>
-                Add carrinho
+                Ad carrinho
               </button>
             </div>
           </div>
