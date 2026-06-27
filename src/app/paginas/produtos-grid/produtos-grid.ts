@@ -8,6 +8,7 @@ import { TitleCasePipe } from '@angular/common';
 import { EcommerceStore } from '../../ecommerce-store';
 
 
+
 @Component({
   standalone: true,
   selector: 'app-produtos-grid',
@@ -31,10 +32,10 @@ import { EcommerceStore } from '../../ecommerce-store';
       <mat-sidenav-content class="bg-gray-100 p-6 h-full">
         <h1 class="text-2xl font-bold text-gray-900" >  {{categoria() | titlecase}} </h1>
         <p class="text-base text-gray-600 mb-6"> 
-          {{ store.produtosFiltrados().length}} Produtos encontrados
+          {{ $any(store).produtosFiltrados().length}} Produtos encontrados
         </p>
         <div class="responsive-grid">
-          @for (produto of store.produtosFiltrados(); track produto.id) {
+          @for (produto of $any(store).produtosFiltrados(); track produto.id) {
           <app-card-produto [produto]= "produto"/>
           }
         </div>
@@ -50,4 +51,8 @@ export default class ProdutosGrid {
   store = inject(EcommerceStore);
 
   categorias = signal<string[]>(['todos', 'informatica', 'audio', 'wearables', 'smartphones', 'monitores', 'perifericos'])
+
+  constructor(){
+    this.store.setCategoria(this.categoria);
+  }
 }
