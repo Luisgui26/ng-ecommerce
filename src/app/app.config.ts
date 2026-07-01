@@ -13,6 +13,6 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes, withComponentInputBinding()),
-    provideHotToastConfig({style: {marginTop: '70px'}}),
+    provideHotToastConfig({style: {marginTop: '70px'}, stacking: 'depth', duration: 1000}),
   ],
 };
